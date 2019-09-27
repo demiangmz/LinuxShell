@@ -1,0 +1,19 @@
+#Credit: https://www.calazan.com/how-to-delete-all-queues-in-rabbitmq/
+
+#Get RabbitMQAdmin tool location
+locate rabbitmqadmin
+ 
+#Copy to /usr/bin
+cp /var/lib/rabbitmq/mnesia/rabbit@RMQServer-plugins-expand/rabbitmq_management-3.5.7/priv/www/cli/rabbitmqadmin /usr/local/bin
+ 
+#Grant proper permissions to the tool
+cd /usr/local/bin
+chmod 755 rabbitmqadmin
+ 
+#Delete all queues with this command
+
+##############################################################
+(WARNING! Be careful, all RabittMQ queues will get DELETED!)
+##############################################################
+ 
+rabbitmqadmin  --username=rabbitmqadmin --password=******* -f tsv -q list queues name | while read queue; do rabbitmqadmin  --username=rabbitmqadmin --password=******* -q delete queue name=${queue}; done  
